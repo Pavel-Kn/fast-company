@@ -25,7 +25,7 @@ const Users = () => {
     }
 
     return (
-      <span className="badge m-2 bg-primary">
+      <span className="badge bg-primary fs-4 m-4">
         {counter} человек{endingOfTheWord} тусанет с тобой сегодня
       </span>
     );
@@ -34,13 +34,13 @@ const Users = () => {
   const renderTable = () => {
     if (users.length === 0) {
       return (
-        <span className="badge m-2 bg-danger">Никто с тобой не тусанет</span>
+        <span className="badge bg-danger fs-4 m-4">Никто с тобой сегодня не тусанет =( </span>
       );
     } else {
       return (
         <>
           {counterUsers()}
-          <table className="table table-sm">
+          <table className="table table-sm fs-3 m-4">
             <thead>
               <tr>
                 <th scope="col">Имя</th>
