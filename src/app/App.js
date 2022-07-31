@@ -7,19 +7,15 @@ function App() {
     const [users, setUsers] = useState(api.users.fetchAll());
 
     const handleDelete = (userId) => {
-
         setUsers((prevState) => prevState.filter((elem) => elem._id !== userId));
     };
 
     const handleToggleBookmark = (userMark) => {
-        setUsers((prevState) => prevState.map((elem) => {
-            console.log(userMark)
-            if (elem._id === userMark) {
-                return elem.bookmark = true;
-            }
-            return elem
-        }))
-    }
+        const elemIndex = users.findIndex((elem) => elem._id === userMark);
+        const newUsersArray = [...users];
+        newUsersArray[elemIndex].bookmark = !newUsersArray[elemIndex].bookmark;
+        setUsers(newUsersArray);
+    };
 
     return (
         <div>

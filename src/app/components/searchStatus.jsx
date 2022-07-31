@@ -1,7 +1,6 @@
 import React from 'react';
 
-const SearchStatus = (props) => {
-    const {users} = props;
+const SearchStatus = ({users}) => {
 
     let counter = users.length;
     let endingOfTheWord = "";

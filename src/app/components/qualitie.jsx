@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Qualitie = (props) => {
-    const {qualities} = props;
+const Qualitie = ({qualities}) => {
+
     const getBadgesAndNames = qualities.map((elem) => {
         return (
             <span

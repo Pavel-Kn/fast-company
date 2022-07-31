@@ -1,14 +1,13 @@
 import React from "react";
 import User from "./user";
 
-const UsersList = (props) => {
-    const {users, onDelete, onToggle} = props;
+const UsersList = ({users, onDelete, onToggle}) => {
 
     const listOfUsers = users.map((elem) => {
         return (
             <User
                 key={elem._id}
-                {...elem}
+                element={elem}
                 onDelete={onDelete}
                 onToggle={onToggle}
             />

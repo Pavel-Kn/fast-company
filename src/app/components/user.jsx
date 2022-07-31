@@ -2,21 +2,21 @@ import React from 'react';
 import Qualitie from "./qualitie";
 import Bookmark from "./bookmark";
 
-const User = (props) => {
-    const {onToggle} = props
-
+const User = ({onToggle, element, onDelete}) => {
+    const {_id, name, rate, qualities, profession, bookmark, completedMeetings} = element;
     return (
-        <tr key={props._id}>
-            <td>{props.name}</td>
+        <tr key={_id}>
+            <td>{name}</td>
             <td>
-                <Qualitie qualities={props.qualities}/>
+                <Qualitie qualities={qualities}/>
             </td>
-            <td>{props.profession.name}</td>
-            <td>{props.completedMeetings}</td>
-            <td>{props.rate}/5</td>
+            <td>{profession.name}</td>
+            <td>{completedMeetings}</td>
+            <td>{rate}/5</td>
             <td>
                 <Bookmark
-                    isBookmark={props.bookmark}
+                    isBookmark={bookmark}
+                    id={_id}
                     onToggle={onToggle}
                 />
             </td>
@@ -24,7 +24,7 @@ const User = (props) => {
                 <button
                     type="button"
                     className="btn btn-danger"
-                    onClick={() => props.onDelete(props._id)}
+                    onClick={() => onDelete(_id)}
                 >
                     Delete
                 </button>
