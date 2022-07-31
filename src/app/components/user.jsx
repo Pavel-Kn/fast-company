@@ -1,8 +1,10 @@
 import React from 'react';
 import Qualitie from "./qualitie";
-//import Bookmark from "./bookmark";
+import Bookmark from "./bookmark";
 
 const User = (props) => {
+    const {onToggle} = props
+
     return (
         <tr key={props._id}>
             <td>{props.name}</td>
@@ -12,6 +14,12 @@ const User = (props) => {
             <td>{props.profession.name}</td>
             <td>{props.completedMeetings}</td>
             <td>{props.rate}/5</td>
+            <td>
+                <Bookmark
+                    isBookmark={props.bookmark}
+                    onToggle={onToggle}
+                />
+            </td>
             <td>
                 <button
                     type="button"

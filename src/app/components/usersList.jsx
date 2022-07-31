@@ -2,7 +2,7 @@ import React from "react";
 import User from "./user";
 
 const UsersList = (props) => {
-    const {users, onDelete} = props;
+    const {users, onDelete, onToggle} = props;
 
     const listOfUsers = users.map((elem) => {
         return (
@@ -10,6 +10,7 @@ const UsersList = (props) => {
                 key={elem._id}
                 {...elem}
                 onDelete={onDelete}
+                onToggle={onToggle}
             />
         );
     });
@@ -26,6 +27,7 @@ const UsersList = (props) => {
                         <th scope="col">Профессия</th>
                         <th scope="col">Встретился, раз</th>
                         <th scope="col">Оценка</th>
+                        <th scope="col">Избранное</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
