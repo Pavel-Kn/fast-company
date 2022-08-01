@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import User from "./user";
 import Pagination from "./pagination";
 import { paginate } from "../utils/paginate";
+import { PropTypes } from "prop-types";
 
 const UsersList = ({ users, onDelete, onToggle }) => {
     const count = users.length;
@@ -53,6 +54,12 @@ const UsersList = ({ users, onDelete, onToggle }) => {
     };
 
     return renderTable();
+};
+
+UsersList.propTypes = {
+    users: PropTypes.array.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onToggle: PropTypes.func.isRequired
 };
 
 export default UsersList;

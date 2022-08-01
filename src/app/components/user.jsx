@@ -1,6 +1,7 @@
 import React from "react";
 import Qualitie from "./qualitie";
 import Bookmark from "./bookmark";
+import { PropTypes } from "prop-types";
 
 const User = ({ onToggle, element, onDelete }) => {
     const {
@@ -35,6 +36,12 @@ const User = ({ onToggle, element, onDelete }) => {
             </td>
         </tr>
     );
+};
+
+User.propTypes = {
+    element: PropTypes.array.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onToggle: PropTypes.func.isRequired
 };
 
 export default User;

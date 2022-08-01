@@ -21,7 +21,7 @@ function App() {
 
     return (
         <div>
-            <SearchStatus users={users} />
+            <SearchStatus allUsersCount={users.length} />
             <UsersList
                 users={users}
                 onDelete={handleDelete}
