@@ -1,9 +1,9 @@
 import React from "react";
 import Qualitie from "./qualitie";
 import Bookmark from "./bookmark";
-import { PropTypes } from "prop-types";
+import PropTypes from "prop-types";
 
-const User = ({ onToggle, element, onDelete }) => {
+const User = ({onToggle, element, onDelete}) => {
     const {
         _id,
         name,
@@ -17,13 +17,13 @@ const User = ({ onToggle, element, onDelete }) => {
         <tr key={_id}>
             <td>{name}</td>
             <td>
-                <Qualitie qualities={qualities} />
+                <Qualitie qualities={qualities}/>
             </td>
             <td>{profession.name}</td>
             <td>{completedMeetings}</td>
             <td>{rate}/5</td>
             <td>
-                <Bookmark isBookmark={bookmark} id={_id} onToggle={onToggle} />
+                <Bookmark isBookmark={bookmark} id={_id} onToggle={onToggle}/>
             </td>
             <td>
                 <button
