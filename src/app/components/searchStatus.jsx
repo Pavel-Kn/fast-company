@@ -1,7 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const SearchStatus = ({users}) => {
-
+const SearchStatus = ({ users }) => {
     let counter = users.length;
     let endingOfTheWord = "";
     let remainder = counter % 10;
@@ -20,7 +19,9 @@ const SearchStatus = ({users}) => {
 
     if (users.length === 0) {
         return (
-            <span className="badge bg-danger fs-4 m-4">Никто с тобой сегодня не тусанет =( </span>
+            <span className="badge bg-danger fs-4 m-4">
+                Никто с тобой сегодня не тусанет =({" "}
+            </span>
         );
     } else {
         return (

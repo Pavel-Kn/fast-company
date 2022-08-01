@@ -1,24 +1,28 @@
-import React from 'react';
+import React from "react";
 import Qualitie from "./qualitie";
 import Bookmark from "./bookmark";
 
-const User = ({onToggle, element, onDelete}) => {
-    const {_id, name, rate, qualities, profession, bookmark, completedMeetings} = element;
+const User = ({ onToggle, element, onDelete }) => {
+    const {
+        _id,
+        name,
+        rate,
+        qualities,
+        profession,
+        bookmark,
+        completedMeetings
+    } = element;
     return (
         <tr key={_id}>
             <td>{name}</td>
             <td>
-                <Qualitie qualities={qualities}/>
+                <Qualitie qualities={qualities} />
             </td>
             <td>{profession.name}</td>
             <td>{completedMeetings}</td>
             <td>{rate}/5</td>
             <td>
-                <Bookmark
-                    isBookmark={bookmark}
-                    id={_id}
-                    onToggle={onToggle}
-                />
+                <Bookmark isBookmark={bookmark} id={_id} onToggle={onToggle} />
             </td>
             <td>
                 <button
