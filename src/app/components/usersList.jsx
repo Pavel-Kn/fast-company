@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import User from "./user";
 import Pagination from "./pagination";
-import {paginate} from "../utils/paginate";
+import { paginate } from "../utils/paginate";
 import PropTypes from "prop-types";
 
-const UsersList = ({users, onDelete, onToggle}) => {
+const UsersList = ({ users, onDelete, onToggle }) => {
     const count = users.length;
     const pageSize = 4;
     const [currentPage, setCurrentPage] = useState(1);
@@ -31,15 +31,15 @@ const UsersList = ({users, onDelete, onToggle}) => {
             <>
                 <table className="table table-sm fs-3 m-4">
                     <thead>
-                    <tr>
-                        <th scope="col">Имя</th>
-                        <th scope="col">Качества</th>
-                        <th scope="col">Профессия</th>
-                        <th scope="col">Встретился, раз</th>
-                        <th scope="col">Оценка</th>
-                        <th scope="col">Избранное</th>
-                        <th scope="col"></th>
-                    </tr>
+                        <tr>
+                            <th scope="col">Имя</th>
+                            <th scope="col">Качества</th>
+                            <th scope="col">Профессия</th>
+                            <th scope="col">Встретился, раз</th>
+                            <th scope="col">Оценка</th>
+                            <th scope="col">Избранное</th>
+                            <th scope="col"></th>
+                        </tr>
                     </thead>
                     <tbody>{listOfUsers}</tbody>
                 </table>

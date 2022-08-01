@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const SearchStatus = ({allUsersCount}) => {
+const SearchStatus = ({ allUsersCount }) => {
     const counter = allUsersCount;
     let endingOfTheWord = "";
     const remainder = counter % 10;

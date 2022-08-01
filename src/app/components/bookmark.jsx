@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Bookmark = ({isBookmark, onToggle, id}) => {
+const Bookmark = ({ isBookmark, onToggle, id }) => {
     const bookmarkIcon =
         isBookmark === false
             ? "bi bi-bookmark-heart"
@@ -11,7 +11,7 @@ const Bookmark = ({isBookmark, onToggle, id}) => {
         <button className="btn btn-light" onClick={() => onToggle(id)}>
             <i
                 className={bookmarkIcon}
-                style={{margin: 10, fontSize: "1.3rem"}}
+                style={{ margin: 10, fontSize: "1.3rem" }}
             ></i>
         </button>
     );
