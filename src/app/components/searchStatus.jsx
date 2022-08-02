@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
+import PropTypes from "prop-types";
 
-const SearchStatus = ({users}) => {
-
-    let counter = users.length;
+const SearchStatus = ({ allUsersCount }) => {
+    const counter = allUsersCount;
     let endingOfTheWord = "";
-    let remainder = counter % 10;
+    const remainder = counter % 10;
 
     if (remainder > 1 && remainder < 5) {
         endingOfTheWord = "а";
@@ -18,9 +18,11 @@ const SearchStatus = ({users}) => {
         endingOfTheWord = "";
     }
 
-    if (users.length === 0) {
+    if (allUsersCount === 0) {
         return (
-            <span className="badge bg-danger fs-4 m-4">Никто с тобой сегодня не тусанет =( </span>
+            <span className="badge bg-danger fs-4 m-4">
+                Никто с тобой сегодня не тусанет =({" "}
+            </span>
         );
     } else {
         return (
@@ -29,6 +31,10 @@ const SearchStatus = ({users}) => {
             </span>
         );
     }
+};
+
+SearchStatus.propTypes = {
+    allUsersCount: PropTypes.number.isRequired
 };
 
 export default SearchStatus;
