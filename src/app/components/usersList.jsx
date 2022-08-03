@@ -1,19 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import User from "./user";
 import Pagination from "./pagination";
 import { paginate } from "../utils/paginate";
 import PropTypes from "prop-types";
+import GroupList from "./groupList";
+import api from "../../api";
 
-const UsersList = ({ users, onDelete, onToggle }) => {
-    const count = users.length;
-    const pageSize = 4;
+const UsersList = ({ users: allUsers, onDelete, onToggle }) => {
     const [currentPage, setCurrentPage] = useState(1);
+    const [professions, setProfession] = useState();
+    const [selectedProf, setSelectedProf] = useState();
+    const count = allUsers.length;
+    const pageSize = 4;
+
+    useEffect(() => {
+        api.professions.fetchAll().then((data) => setProfession(data));
+    }, []);
+
+    const handleProfessionSelect = (item) => {
+        setSelectedProf(item);
+    };
 
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex);
     };
 
-    const userCrop = paginate(users, currentPage, pageSize);
+    const filteredUsers = selectedProf
+        ? allUsers.filter((user) => user.profession === selectedProf)
+        : allUsers;
+    const userCrop = paginate(filteredUsers, currentPage, pageSize);
 
     const listOfUsers = userCrop.map((elem) => {
         return (
@@ -29,6 +44,14 @@ const UsersList = ({ users, onDelete, onToggle }) => {
     const renderTable = () => {
         return (
             <>
+                {professions && (
+                    <GroupList
+                        selectedItem={selectedProf}
+                        items={professions}
+                        onItemSelect={handleProfessionSelect}
+                    />
+                )}
+
                 <table className="table table-sm fs-3 m-4">
                     <thead>
                         <tr>

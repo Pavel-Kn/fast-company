@@ -39,7 +39,7 @@ const User = ({ onToggle, element, onDelete }) => {
 };
 
 User.propTypes = {
-    element: PropTypes.array.isRequired,
+    element: PropTypes.object.isRequired,
     onDelete: PropTypes.func.isRequired,
     onToggle: PropTypes.func.isRequired
 };
