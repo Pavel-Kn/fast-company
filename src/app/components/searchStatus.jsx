@@ -20,15 +20,19 @@ const SearchStatus = ({ allUsersCount }) => {
 
     if (allUsersCount === 0) {
         return (
-            <span className="badge bg-danger fs-4 m-4">
-                Никто с тобой сегодня не тусанет =({" "}
-            </span>
+            <h2>
+                <span className="badge bg-danger fs-4 m-4">
+                    Никто с тобой сегодня не тусанет =({" "}
+                </span>
+            </h2>
         );
     } else {
         return (
-            <span className="badge bg-primary fs-4 m-4">
-                {counter} человек{endingOfTheWord} тусанет с тобой сегодня
-            </span>
+            <h2>
+                <span className="badge bg-primary fs-4 m-4">
+                    {counter} человек{endingOfTheWord} тусанет с тобой сегодня
+                </span>
+            </h2>
         );
     }
 };
