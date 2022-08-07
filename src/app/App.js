@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UsersList from "./components/usersList";
 import api from "../api";
 
 function App() {
-    const [users, setUsers] = useState(api.users.fetchAll());
+    const [users, setUsers] = useState();
+
+    useEffect(() => {
+        api.users.fetchAll().then((data) => setUsers(data));
+    }, []);
 
     const handleDelete = (userId) => {
         setUsers((prevState) =>
@@ -20,11 +24,13 @@ function App() {
 
     return (
         <div>
-            <UsersList
-                users={users}
-                onDelete={handleDelete}
-                onToggle={handleToggleBookmark}
-            />
+            {users && (
+                <UsersList
+                    users={users}
+                    onDelete={handleDelete}
+                    onToggle={handleToggleBookmark}
+                />
+            )}
         </div>
     );
 }
