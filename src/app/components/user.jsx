@@ -1,29 +1,23 @@
 import React from "react";
-import Qualitie from "./qualitie";
 import Bookmark from "./bookmark";
 import PropTypes from "prop-types";
 
-const User = ({ onToggle, element, onDelete }) => {
-    const {
-        _id,
-        name,
-        rate,
-        qualities,
-        profession,
-        bookmark,
-        completedMeetings
-    } = element;
+const User = ({ onToggleBookMark, element, onDelete }) => {
+    const { _id, name, rate, profession, bookmark, completedMeetings } =
+        element;
     return (
         <tr key={_id}>
             <td>{name}</td>
-            <td>
-                <Qualitie qualities={qualities} />
-            </td>
+            <td></td>
             <td>{profession.name}</td>
             <td>{completedMeetings}</td>
             <td>{rate}/5</td>
             <td>
-                <Bookmark isBookmark={bookmark} id={_id} onToggle={onToggle} />
+                <Bookmark
+                    isBookmark={bookmark}
+                    id={_id}
+                    onToggle={() => onToggleBookMark(_id)}
+                />
             </td>
             <td>
                 <button
@@ -41,7 +35,7 @@ const User = ({ onToggle, element, onDelete }) => {
 User.propTypes = {
     element: PropTypes.object.isRequired,
     onDelete: PropTypes.func.isRequired,
-    onToggle: PropTypes.func.isRequired
+    onToggleBookMark: PropTypes.func.isRequired
 };
 
 export default User;
