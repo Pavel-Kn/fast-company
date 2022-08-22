@@ -22,7 +22,7 @@ const SearchStatus = ({ allUsersCount }) => {
         return (
             <h2>
                 <span className="badge bg-danger fs-4 m-4">
-                    Никто с тобой сегодня не тусанет =({" "}
+                    Никто с тобой сегодня не тусанет =(
                 </span>
             </h2>
         );
