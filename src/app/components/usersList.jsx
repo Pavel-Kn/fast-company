@@ -13,7 +13,9 @@ const UsersList = () => {
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
     const [users, setUsers] = useState();
+    const [searchQuery, setSearchQuery] = useState("");
     const pageSize = 8;
+
     useEffect(() => {
         api.users.fetchAll().then((data) => setUsers(data));
     }, []);
@@ -37,9 +39,15 @@ const UsersList = () => {
 
     useEffect(() => {
         setCurrentPage(1);
-    }, [selectedProf]);
+    }, [selectedProf, searchQuery]);
+
+    const handleQuery = ({ target }) => {
+        setSelectedProf(undefined);
+        setSearchQuery(target.value);
+    };
 
     const handleProfessionSelect = (item) => {
+        if (searchQuery !== "") setSearchQuery("");
         setSelectedProf(item);
     };
 
@@ -52,13 +60,20 @@ const UsersList = () => {
     };
 
     if (users) {
-        const filteredUsers = selectedProf
+        const filteredUsers = searchQuery
             ? users.filter(
                 (user) =>
-                    JSON.stringify(user.profession) ===
-                    JSON.stringify(selectedProf)
+                    user.name
+                        .toLowerCase()
+                        .indexOf(searchQuery.toLowerCase()) !== -1
             )
-            : users;
+            : selectedProf
+                ? users.filter(
+                    (user) =>
+                        JSON.stringify(user.profession) ===
+                        JSON.stringify(selectedProf)
+                )
+                : users;
         const count = filteredUsers.length;
         const sortedUsers = _.orderBy(
             filteredUsers,
@@ -90,6 +105,19 @@ const UsersList = () => {
                     )}
                     <div className="d-flex flex-column">
                         <SearchStatus allUsersCount={count} />
+                        <div className="input-group p-4">
+                            <span className="input-group-text "><i className="bi bi-search"/></span>
+                            <div className="form-floating w-50">
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    placeholder="Search..."
+                                    onChange={handleQuery}
+                                    value={searchQuery}
+                                />
+                                <label>Search...</label>
+                            </div>
+                        </div>
                         <UsersTable
                             onSort={handleSort}
                             selectedSort={sortBy}
