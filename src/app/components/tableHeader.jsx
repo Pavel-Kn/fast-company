@@ -15,11 +15,9 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
 
     const sortIcon = (item) => {
         if (selectedSort.path === item) {
-            return (
-                selectedSort.order === "asc"
-                    ? "bi bi-caret-up-fill"
-                    : "bi bi-caret-down-fill"
-            );
+            return selectedSort.order === "asc"
+                ? "bi bi-caret-up-fill"
+                : "bi bi-caret-down-fill";
         } else {
             return "";
         }
@@ -40,8 +38,14 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
                         scope="col"
                     >
                         {columns[column].name}
-                        <i className={columns[column].path ? sortIcon(columns[column].path) : ""}
-                            style={{ margin: 10 }}/>
+                        <i
+                            className={
+                                columns[column].path
+                                    ? sortIcon(columns[column].path)
+                                    : ""
+                            }
+                            style={{ margin: 10 }}
+                        />
                     </th>
                 ))}
             </tr>
