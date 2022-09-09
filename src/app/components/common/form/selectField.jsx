@@ -19,12 +19,9 @@ const SelectField = ({
     };
 
     const optionsArray =
-        !Array.isArray(options) && typeof options === "object"
-            ? Object.keys(options).map(optionName => ({
-                name: options[optionName].name,
-                value: options[optionName]._id
-            }))
-            : options;
+    !Array.isArray(options) && typeof options === "object"
+        ? Object.values(options)
+        : options;
 
     return (
         <div className="mb-4">
@@ -37,18 +34,16 @@ const SelectField = ({
                     name={name}
                     value={value}
                     onChange={handleChange}
-                >s
+                >
                     <option disabled value="">
                         {defaultOption}
                     </option>
-                    {
-                        optionsArray && optionsArray.map(option => <option
-                                value={option.value}
-                                key={option.value}
-                        >
-                            {option.name}
-                        </option>)
-                    }
+                    {optionsArray.length > 0 &&
+                    optionsArray.map((option) => (
+                        <option value={option.value} key={option.value}>
+                            {option.label}
+                        </option>
+                    ))}
                 </select>
                 {error && <div className="invalid-feedback">
                     {error}
