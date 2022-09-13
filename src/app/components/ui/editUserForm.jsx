@@ -21,6 +21,22 @@ const EditUserForm = () => {
         qualities: []
     });
 
+    useEffect(() => {
+        if (user) {
+            setData({
+                name: user.name,
+                email: user.email,
+                sex: user.sex,
+                profession: user.profession,
+                qualities: user.qualities
+            });
+        }
+    }, [user]);
+
+    useEffect(() => {
+        api.users.getById(userId).then((data) => setUser(data));
+    }, []);
+
     const getProfessionById = (id) => {
         for (const prof of professions) {
             if (prof.value === id) {
@@ -46,10 +62,6 @@ const EditUserForm = () => {
     };
 
     useEffect(() => {
-        api.users.getById(userId).then((data) => setUser(data));
-    }, []);
-
-    useEffect(() => {
         api.professions.fetchAll().then((data) => {
             const professionsList = Object.keys(data).map((professionName) => ({
                 label: data[professionName].name,
@@ -67,32 +79,32 @@ const EditUserForm = () => {
         });
     }, []);
 
-    const updateButton = () => {
-        useEffect(() => {
-            api.users.update(userId, data).then((data) => setUser(data));
-            history.push(`/users/${userId}`);
-        }, []);
-    };
-
     const handleChange = (target) => {
-            setData((prevState) => ({
+        setData((prevState) => ({
             ...prevState,
             [target.name]: target.value
-            }));
+        }));
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        const { profession, qualities } = data;
-        console.log({
+        const { name, email, sex, profession, qualities } = data;
+
+        api.users.update(userId, {
             ...data,
+            name: name,
+            email: email,
+            sex: sex,
             profession: getProfessionById(profession),
             qualities: getQualities(qualities)
-            });
+        })
+
+        .then((data) => setUser(data));
+        history.push(`/users/${userId}`);
     };
 
     if (user) {
         return (
-             <div className="container mt-5">
+            <div className="container mt-5">
                 <div className="row">
                     <div className="col-md-6 offset-md-3 shadow p-4">
                         <form onSubmit={handleSubmit}>
@@ -131,20 +143,19 @@ const EditUserForm = () => {
                                 label="Выберите ваши качества"
                                 options={qualities}
                                 onChange={handleChange}
-                                defaultValue={data.qualities}
+                                defaultValue={data.qualities.name}
                                 name="qualities"
                             />
                             <button
                                 type="submit"
                                 className="btn btn-primary w-100 mx-auto"
-                                onClick={updateButton}
                             >
                                 Обновить
                             </button>
                         </form>
                     </div>
                 </div>
-             </div>
+            </div>
         );
     }
     return <h2>Loading...</h2>;
