@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Qualitie = ({ qualities }) => {
+const Qualities = ({ qualities }) => {
     const getBadgesAndNames = qualities.map((elem) => {
         return (
             <span key={elem._id} className={`badge m-1 bg-${elem.color}`}>
@@ -13,8 +13,8 @@ const Qualitie = ({ qualities }) => {
     return getBadgesAndNames;
 };
 
-Qualitie.propTypes = {
+Qualities.propTypes = {
     qualities: PropTypes.array.isRequired
 };
 
-export default Qualitie;
+export default Qualities;
