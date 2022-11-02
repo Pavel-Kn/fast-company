@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import TextField from "../../common/form/textField";
-import MultiSelectField from "../../common/form/multiSelectField";
 import { useHistory, useParams } from "react-router-dom";
+import { validator } from "../../../utils/validator";
 import api from "../../../../api";
+import TextField from "../../common/form/textField";
 import SelectField from "../../common/form/selectField";
 import RadioField from "../../common/form/radioField";
-import { validator } from "../../../utils/validator";
+import MultiSelectField from "../../common/form/multiSelectField";
+import BackHistoryButton from "../../common/backButton";
 
 const EditUserPage = () => {
     const { userId } = useParams();
@@ -126,6 +127,7 @@ const EditUserPage = () => {
     const isValid = Object.keys(errors).length === 0;
     return (
         <div className="container mt-5">
+            <BackHistoryButton />
             <div className="row">
                 <div className="col-md-6 offset-md-3 shadow p-4">
                     {!isLoading && Object.keys(professions).length > 0 ? (
