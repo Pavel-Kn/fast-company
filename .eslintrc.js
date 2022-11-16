@@ -8,7 +8,7 @@ module.exports = {
         ecmaFeatures: {
             jsx: true
         },
-        ecmaVersion: "latest",
+        ecmaVersion: 12,
         sourceType: "module"
     },
     plugins: ["react"],
@@ -25,7 +25,7 @@ module.exports = {
             "double",
             {
                 allowTemplateLiterals: true
-            }],
-        "object-curly-spacing": ["error", "always"]
+            }
+        ]
     }
 };

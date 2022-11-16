@@ -1,44 +1,29 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-const SearchStatus = ({ allUsersCount }) => {
-    const counter = allUsersCount;
-    let endingOfTheWord = "";
-    const remainder = counter % 10;
-
-    if (remainder > 1 && remainder < 5) {
-        endingOfTheWord = "а";
-    }
-
-    if (counter > 10 && counter < 20) {
-        endingOfTheWord = "";
-    }
-
-    if (remainder === 1) {
-        endingOfTheWord = "";
-    }
-
-    if (allUsersCount === 0) {
-        return (
-            <h2>
-                <span className="badge bg-danger fs-4 m-4">
-                    Никто с тобой сегодня не тусанет =(
-                </span>
-            </h2>
-        );
-    } else {
-        return (
-            <h2>
-                <span className="badge bg-primary fs-4 m-4">
-                    {counter} человек{endingOfTheWord} тусанет с тобой сегодня
-                </span>
-            </h2>
-        );
-    }
+const SearchStatus = ({ length }) => {
+    const renderPhrase = (number) => {
+        const lastOne = Number(number.toString().slice(-1));
+        if (number > 4 && number < 15) {
+            return "человек тусанет";
+        }
+        if (lastOne === 1) return "человек тусанет";
+        if ([2, 3, 4].indexOf(lastOne) >= 0) return "человека тусанут";
+        return "человек тусанет";
+    };
+    return (
+        <h2>
+            <span
+                className={"badge " + (length > 0 ? "bg-primary" : "bg-danger")}
+            >
+                {length > 0
+                    ? `${length + " " + renderPhrase(length)}   с тобой сегодня`
+                    : "Никто с тобой не тусанет"}
+            </span>
+        </h2>
+    );
 };
-
 SearchStatus.propTypes = {
-    allUsersCount: PropTypes.number.isRequired
+    length: PropTypes.number
 };
 
 export default SearchStatus;

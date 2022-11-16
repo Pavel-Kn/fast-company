@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { validator } from "../../utils/validator";
 import TextField from "../common/form/textField";
-import api from "../../../api";
+import api from "../../api";
 import SelectField from "../common/form/selectField";
 import RadioField from "../common/form/radioField";
 import MultiSelectField from "../common/form/multiSelectField";
@@ -27,7 +27,6 @@ const RegisterForm = () => {
             }
         }
     };
-
     const getQualities = (elements) => {
         const qualitiesArray = [];
         for (const elem of elements) {
@@ -54,67 +53,63 @@ const RegisterForm = () => {
         });
         api.qualities.fetchAll().then((data) => {
             const qualitiesList = Object.keys(data).map((optionName) => ({
-                label: data[optionName].name,
                 value: data[optionName]._id,
+                label: data[optionName].name,
                 color: data[optionName].color
             }));
             setQualities(qualitiesList);
         });
     }, []);
-
     const handleChange = (target) => {
-            setData((prevState) => ({
+        setData((prevState) => ({
             ...prevState,
             [target.name]: target.value
-            }));
+        }));
     };
-
     const validatorConfig = {
         email: {
             isRequired: {
-                message: "Электронная почта обязательна к заполнению"
+                message: "Электронная почта обязательна для заполнения"
             },
             isEmail: {
-                message: "Электронная почта введена некорректно"
+                message: "Email введен некорректно"
             }
         },
         password: {
             isRequired: {
-                message: "Пароль обязателен к заполнению"
+                message: "Пароль обязателен для заполнения"
             },
             isCapitalSymbol: {
                 message: "Пароль должен содержать хотя бы одну заглавную букву"
             },
             isContainDigit: {
-                message: "Пароль должен содержать хотя бы одну цифру"
+                message: "Пароль должен содержать хотя бы одно число"
             },
             min: {
-                message: "Пароль должен содержать минимум 8 символов",
+                message: "Пароль должен состоять минимум из 8 символов",
                 value: 8
             }
         },
         profession: {
             isRequired: {
-                message: "Обязательно выберите профессию"
+                message: "Обязательно выберите вашу профессию"
             }
         },
         licence: {
             isRequired: {
-                message: "Вы не можете использовать наш сервис без подтверждения лицензионного соглашения"
+                message:
+                    "Вы не можете использовать наш сервис без подтверждения лицензионного соглашения"
             }
         }
     };
-
     useEffect(() => {
         validate();
     }, [data]);
-
     const validate = () => {
         const errors = validator(data, validatorConfig);
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
-
     const isValid = Object.keys(errors).length === 0;
 
     const handleSubmit = (e) => {
@@ -128,7 +123,6 @@ const RegisterForm = () => {
             qualities: getQualities(qualities)
         });
     };
-
     return (
         <form onSubmit={handleSubmit}>
             <TextField
@@ -149,8 +143,8 @@ const RegisterForm = () => {
             <SelectField
                 label="Выбери свою профессию"
                 defaultOption="Choose..."
-                name="profession"
                 options={professions}
+                name="profession"
                 onChange={handleChange}
                 value={data.profession}
                 error={errors.profession}
@@ -182,9 +176,9 @@ const RegisterForm = () => {
                 Подтвердить <a>лицензионное соглашение</a>
             </CheckBoxField>
             <button
+                className="btn btn-primary w-100 mx-auto"
                 type="submit"
                 disabled={!isValid}
-                className="btn btn-primary w-100 mx-auto"
             >
                 Submit
             </button>
