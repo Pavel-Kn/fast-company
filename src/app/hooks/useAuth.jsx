@@ -30,14 +30,16 @@ const AuthProvider = ({ children }) => {
             const { code, message } = error.response.data.error;
             console.log(code, message);
             if (code === 400) {
-                if (message === "INVALID_PASSWORD") {
-                    const errorObject = {
-                        password: "Password введен некорректно"
-                    };
-                    throw errorObject;
+                switch (message) {
+                    case "INVALID_PASSWORD":
+                        throw new Error("Email или пароль введены некорректно");
+
+                    default:
+                        throw new Error(
+                            "Слишком много попыток входа. Попробуйте позже"
+                        );
                 }
             }
-            throw new Error();
         }
     };
 
