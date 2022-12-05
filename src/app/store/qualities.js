@@ -57,6 +57,7 @@ export const getQualitiesByIds = (qualitiesIds) => (state) => {
                 }
             }
         }
+        console.log(qualitiesArray);
         return qualitiesArray;
     }
     return [];
