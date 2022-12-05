@@ -15,34 +15,24 @@ const LoginForm = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const [errors, setErrors] = useState({});
+    const [enterError, setEnterError] = useState(null);
     const handleChange = (target) => {
         setData((prevState) => ({
             ...prevState,
             [target.name]: target.value
         }));
+        setEnterError(null);
     };
+
     const validatorConfig = {
         email: {
             isRequired: {
                 message: "Электронная почта обязательна для заполнения"
-            },
-            isEmail: {
-                message: "Email введен некорректно"
             }
         },
         password: {
             isRequired: {
                 message: "Пароль обязателен для заполнения"
-            },
-            isCapitalSymbol: {
-                message: "Пароль должен содержать хотя бы одну заглавную букву"
-            },
-            isContainDigit: {
-                message: "Пароль должен содержать хотя бы одно число"
-            },
-            min: {
-                message: "Пароль должен состоять минимум из 8 символов",
-                value: 8
             }
         }
     };
@@ -61,11 +51,11 @@ const LoginForm = () => {
         const isValid = validate();
         if (!isValid) return;
         const redirect = history.location.state
-        ? history.location.state.form.pathname
-        : "/";
+            ? history.location.state.from.pathname
+            : "/";
+
         dispatch(login({ payload: data, redirect }));
     };
-
     return (
         <form onSubmit={handleSubmit}>
             <TextField
@@ -90,10 +80,11 @@ const LoginForm = () => {
             >
                 Оставаться в системе
             </CheckBoxField>
+            {enterError && <p className="text-danger">{enterError}</p>}
             <button
                 className="btn btn-primary w-100 mx-auto"
                 type="submit"
-                disabled={!isValid}
+                disabled={!isValid || enterError}
             >
                 Submit
             </button>

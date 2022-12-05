@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import axios from "axios";
 import userService from "../services/user.service";
-import localStorageService, { setTokens } from "../services/localStorage.service";
+import localStorageService, {
+    setTokens
+} from "../services/localStorage.service";
 import { useHistory } from "react-router-dom";
 
 export const httpAuth = axios.create({
@@ -61,7 +63,6 @@ const AuthProvider = ({ children }) => {
     function randomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
-
     async function updateUserData(data) {
         try {
             const { content } = await userService.update(data);
@@ -70,7 +71,6 @@ const AuthProvider = ({ children }) => {
             errorCatcher(error);
         }
     }
-
     async function signUp({ email, password, ...rest }) {
         try {
             const { data } = await httpAuth.post(`accounts:signUp`, {
@@ -135,7 +135,6 @@ const AuthProvider = ({ children }) => {
             setLoading(false);
         }
     }, []);
-
     useEffect(() => {
         if (error !== null) {
             toast(error);
@@ -143,7 +142,9 @@ const AuthProvider = ({ children }) => {
         }
     }, [error]);
     return (
-        <AuthContext.Provider value={{ signUp, logIn, currentUser, logOut, updateUserData }}>
+        <AuthContext.Provider
+            value={{ signUp, logIn, currentUser, logOut, updateUserData }}
+        >
             {!isLoading ? children : "Loading..."}
         </AuthContext.Provider>
     );

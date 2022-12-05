@@ -5,7 +5,7 @@ import SelectField from "../common/form/selectField";
 import RadioField from "../common/form/radioField";
 import MultiSelectField from "../common/form/multiSelectField";
 import CheckBoxField from "../common/form/checkBoxField";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getQualities } from "../../store/qualities";
 import { getProfessions } from "../../store/professions";
 import { signUp } from "../../store/users";
@@ -21,14 +21,13 @@ const RegisterForm = () => {
         qualities: [],
         licence: false
     });
-
     const qualities = useSelector(getQualities());
-    const qualitiesList = qualities.map(q => ({
+    const qualitiesList = qualities.map((q) => ({
         label: q.name,
         value: q._id
     }));
     const professions = useSelector(getProfessions());
-    const professionList = professions.map(p => ({
+    const professionsList = professions.map((p) => ({
         label: p.name,
         value: p._id
     }));
@@ -40,7 +39,6 @@ const RegisterForm = () => {
             [target.name]: target.value
         }));
     };
-
     const validatorConfig = {
         email: {
             isRequired: {
@@ -55,7 +53,7 @@ const RegisterForm = () => {
                 message: "Имя обязательно для заполнения"
             },
             min: {
-                message: "Имя должео состоять минимум из 3 символов",
+                message: "Имя должно состоять минимум из 3 символов",
                 value: 3
             }
         },
@@ -102,7 +100,7 @@ const RegisterForm = () => {
         if (!isValid) return;
         const newData = {
             ...data,
-            qualities: data.qualities.map(q => q.value)
+            qualities: data.qualities.map((q) => q.value)
         };
         dispatch(signUp(newData));
     };
@@ -134,7 +132,7 @@ const RegisterForm = () => {
             <SelectField
                 label="Выбери свою профессию"
                 defaultOption="Choose..."
-                options={professionList}
+                options={professionsList}
                 name="profession"
                 onChange={handleChange}
                 value={data.profession}
