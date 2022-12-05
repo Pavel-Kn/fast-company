@@ -1,45 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { validator } from "../../../utils/validator";
 import TextField from "../../common/form/textField";
 import SelectField from "../../common/form/selectField";
 import RadioField from "../../common/form/radioField";
 import MultiSelectField from "../../common/form/multiSelectField";
 import BackHistoryButton from "../../common/backButton";
-import { useAuth } from "../../../hooks/useAuth";
-import { useSelector } from "react-redux";
-import { getQualities, getQualitiesLoadingStatus } from "../../../store/qualities";
-import { getProfessions } from "../../../store/professions";
+import { useSelector, useDispatch } from "react-redux";
+import {
+    getQualities,
+    getQualitiesLoadingStatus
+} from "../../../store/qualities";
+import {
+    getProfessions,
+    getProfessionsLoadingStatus
+} from "../../../store/professions";
+import { getCurrentUserData, updateUser } from "../../../store/users";
 
 const EditUserPage = () => {
-    const history = useHistory();
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState();
-    const { currentUser, updateUserData } = useAuth();
+    const currentUser = useSelector(getCurrentUserData());
+    const dispatch = useDispatch();
     const qualities = useSelector(getQualities());
     const qualitiesLoading = useSelector(getQualitiesLoadingStatus());
-    const professions = useSelector(getProfessions());
-    const professionsLoading = useSelector(getQualitiesLoadingStatus());
-    const [errors, setErrors] = useState({});
-
-    const qualitiesList = qualities.map(q => ({
+    const qualitiesList = qualities.map((q) => ({
         label: q.name,
         value: q._id
     }));
-
-    const professionList = professions.map(p => ({
+    const professions = useSelector(getProfessions());
+    const professionLoading = useSelector(getProfessionsLoadingStatus());
+    const professionsList = professions.map((p) => ({
         label: p.name,
         value: p._id
     }));
+    const [errors, setErrors] = useState({});
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
-        await updateUserData({ ...data, qualities: data.qualities.map((q) => q.value) });
-        history.push(`/users/${currentUser._id}`);
+        dispatch(updateUser({
+            ...data,
+            qualities: data.qualities.map((q) => q.value)
+        }));
     };
-
     function getQualitiesListByIds(qualitiesIds) {
         const qualitiesArray = [];
         for (const qualId of qualitiesIds) {
@@ -48,27 +52,25 @@ const EditUserPage = () => {
                     qualitiesArray.push(quality);
                     break;
                 }
-            };
-        };
+            }
+        }
         return qualitiesArray;
-    };
-
+    }
     const transformData = (data) => {
-        return getQualitiesListByIds(data).map((qual) => ({
+        const result = getQualitiesListByIds(data).map((qual) => ({
             label: qual.name,
             value: qual._id
         }));
+        return result;
     };
-
     useEffect(() => {
-        if (!professionsLoading && !qualitiesLoading && currentUser && !data) {
+        if (!professionLoading && !qualitiesLoading && currentUser && !data) {
             setData({
                 ...currentUser,
                 qualities: transformData(currentUser.qualities)
             });
         }
-    }, [qualitiesLoading, professionsLoading, currentUser, data]);
-
+    }, [professionLoading, qualitiesLoading, currentUser, data]);
     useEffect(() => {
         if (data && isLoading) {
             setIsLoading(false);
@@ -129,7 +131,7 @@ const EditUserPage = () => {
                             <SelectField
                                 label="Выбери свою профессию"
                                 defaultOption="Choose..."
-                                options={professionList}
+                                options={professionsList}
                                 name="profession"
                                 onChange={handleChange}
                                 value={data.profession}

@@ -3,6 +3,6 @@ function isOutdated(date) {
         return true;
     }
     return false;
-};
+}
 
 export default isOutdated;
